@@ -10,7 +10,6 @@ function initializePortfolio() {
     addContactFormValidation();
     addScrollToTopButton();
     addTypingEffect();
-    addSkillsProgressBars();
 }
 
 // Add typing effect to the header
@@ -32,62 +31,30 @@ function addTypingEffect() {
 
 // Add hover effects and animations to skills
 function addSkillsAnimation() {
-    const skillItems = document.querySelectorAll('.skills li');
+    const skillItems = document.querySelectorAll('.skill-item');
     
-    skillItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
-            this.style.backgroundColor = '#e0f7fa';
-            this.style.transition = 'all 0.3s ease';
+    skillItems.forEach((item, index) => {
+        // Add staggered entrance animation
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(50px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'all 0.6s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+        }, index * 200);
+        
+        // Add entrance animation when scrolling into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease forwards';
+                }
+            });
         });
         
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-            this.style.backgroundColor = '#f4f4f4';
-        });
+        observer.observe(item);
     });
-}
-
-// Add progress bars to skills
-function addSkillsProgressBars() {
-    const skills = [
-        { name: 'HTML', level: 80 },
-        { name: 'CSS', level: 80 },
-        { name: 'JavaScript', level: 50 },
-        { name: 'Python', level: 80 },
-        { name: 'MySQL', level: 50 },
-        { name: 'C++', level: 50 },
-        { name: 'Git', level: 50 },
-        { name: 'GitHub', level: 50 },
-        { name: 'Azure', level: 50 },
-        { name: 'Oracle', level: 50 }
-    ];
-    
-    const skillsList = document.querySelector('.skills ul');
-    skillsList.innerHTML = '';
-    
-    skills.forEach(skill => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <div class="skill-item">
-                <span class="skill-name">${skill.name}</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" data-level="${skill.level}"></div>
-                </div>
-                <span class="skill-level">${skill.level}%</span>
-            </div>
-        `;
-        skillsList.appendChild(li);
-    });
-    
-    // Animate progress bars
-    setTimeout(() => {
-        const progressFills = document.querySelectorAll('.progress-fill');
-        progressFills.forEach(fill => {
-            const level = fill.getAttribute('data-level');
-            fill.style.width = level + '%';
-        });
-    }, 500);
 }
 
 // Simplify contact section - remove form, keep only links
