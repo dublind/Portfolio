@@ -1,0 +1,18 @@
+# Dependencias del Sistema de Gestión de Cabañas Rupert
+
+# Conector MySQL para Python
+pymysql>=1.0.2
+
+# Dependencias opcionales para desarrollo y producción
+
+# Para encriptación de contraseñas (futuro)
+# bcrypt>=4.0.0
+
+# Para validaciones adicionales (futuro)
+# email-validator>=2.0.0
+
+# Para manejo de configuración (futuro)
+# python-dotenv>=1.0.0
+
+# Para logs mejorados (futuro)
+# python-logging>=0.4.9.6
